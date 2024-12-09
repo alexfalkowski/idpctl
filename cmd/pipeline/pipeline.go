@@ -19,6 +19,9 @@ var (
 
 	// DeleteFlag defines a pipeline to be deleted by the provided id.
 	DeleteFlag = flags.String()
+
+	// TriggerFlag defines a pipeline to be triggered by the provided id.
+	TriggerFlag = flags.String()
 )
 
 // Start for redis.
@@ -41,6 +44,9 @@ func Start(lc fx.Lifecycle, service *Service, logger *zap.Logger) error {
 	case flags.IsStringSet(DeleteFlag):
 		fn = service.Delete
 		operation = "deleted the pipeline"
+	case flags.IsStringSet(TriggerFlag):
+		fn = service.Trigger
+		operation = "triggered the pipeline"
 	}
 
 	opts := &runner.Options{Lifecycle: lc, Logger: logger, Fn: fn}

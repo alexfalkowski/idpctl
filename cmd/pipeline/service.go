@@ -93,3 +93,19 @@ func (s *Service) Delete(ctx context.Context) context.Context {
 
 	return ctx
 }
+
+// Delete a pipeline.
+func (s *Service) Trigger(ctx context.Context) context.Context {
+	token, err := os.ReadBase64File("secrets/token")
+	runtime.Must(err)
+
+	res, err := s.client.R().
+		SetHeader("Content-Type", "application/json").
+		SetAuthToken(token).
+		Post(s.cfg.Host + "/pipelines/" + *TriggerFlag + "/trigger")
+	runtime.Must(err)
+
+	ctx = meta.WithAttribute(ctx, "response", meta.String(res.Body()))
+
+	return ctx
+}
