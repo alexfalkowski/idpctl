@@ -12,3 +12,7 @@ get:
 # Update a pipeline.
 update:
 	(cd test &&../idpctl pipeline -i file:.config/idpd.yml --update $(id):$(pipeline))
+
+# Update a pipeline.
+delete:
+	(cd test &&../idpctl pipeline -i file:.config/idpd.yml --delete $(id))
