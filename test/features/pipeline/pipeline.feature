@@ -17,6 +17,11 @@ Feature: Pipeline
     Then it should run successfully
     And I should see a log entry of "successfully updated the pipeline" in the file "reports/pipeline.log"
 
+  Scenario: Update an invalid pipeline
+    When we update an pipeline
+    Then it should run unsuccessfully
+    And I should see a log entry of "pipeline: invalid update format, this should be id:path" in the file "reports/pipeline.log"
+
   Scenario: Delete a pipeline
     When we delete a pipeline
     Then it should run successfully

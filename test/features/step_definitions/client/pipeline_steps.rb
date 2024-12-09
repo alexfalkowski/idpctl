@@ -12,6 +12,10 @@ When('we update a pipeline') do
   @status = Idpctl.start_process('client', '--update', '1:pipeline')
 end
 
+When('we update an pipeline') do
+  @status = Idpctl.start_process('client', '--update', 'invalid')
+end
+
 When('we delete a pipeline') do
   @status = Idpctl.start_process('client', '--delete', '1')
 end
