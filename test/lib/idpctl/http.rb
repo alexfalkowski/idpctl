@@ -47,6 +47,20 @@ module Idpctl
 
       res.to_json
     end
+
+    delete '/pipelines/:id' do |id|
+      pipeline = JSON.parse(File.read('pipeline'))['pipeline']
+      pipeline['id'] = id
+
+      res = {
+        meta: {
+          id: '1234'
+        },
+        pipeline: pipeline
+      }
+
+      res.to_json
+    end
   end
 
   class HTTPServer < Nonnative::HTTPServer

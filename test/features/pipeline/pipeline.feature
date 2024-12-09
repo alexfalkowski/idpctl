@@ -7,12 +7,17 @@ Feature: Pipeline
     Then it should run successfully
     And I should see a log entry of "successfully created the pipeline" in the file "reports/pipeline.log"
 
-  Scenario: Get pipeline
+  Scenario: Get a pipeline
     When we get a pipeline
     Then it should run successfully
     And I should see a log entry of "successfully retrieved the pipeline" in the file "reports/pipeline.log"
 
-  Scenario: Update pipeline
+  Scenario: Update a  pipeline
     When we update a pipeline
     Then it should run successfully
     And I should see a log entry of "successfully updated the pipeline" in the file "reports/pipeline.log"
+
+  Scenario: Delete a pipeline
+    When we delete a pipeline
+    Then it should run successfully
+    And I should see a log entry of "successfully deleted the pipeline" in the file "reports/pipeline.log"
