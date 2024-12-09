@@ -33,19 +33,19 @@ func Start(lc fx.Lifecycle, service *Service, logger *zap.Logger) error {
 
 	switch {
 	case flags.IsStringSet(CreateFlag):
-		fn = service.Create
+		fn = service.CreatePipeline
 		operation = "created the pipeline"
 	case flags.IsStringSet(GetFlag):
-		fn = service.Get
+		fn = service.GetPipeline
 		operation = "retrieved the pipeline"
 	case flags.IsStringSet(UpdateFlag):
-		fn = service.Update
+		fn = service.UpdatePipeline
 		operation = "updated the pipeline"
 	case flags.IsStringSet(DeleteFlag):
-		fn = service.Delete
+		fn = service.DeletePipeline
 		operation = "deleted the pipeline"
 	case flags.IsStringSet(TriggerFlag):
-		fn = service.Trigger
+		fn = service.TriggerPipeline
 		operation = "triggered the pipeline"
 	}
 
