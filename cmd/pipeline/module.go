@@ -1,4 +1,4 @@
-package client
+package pipeline
 
 import (
 	"go.uber.org/fx"
@@ -6,5 +6,5 @@ import (
 
 // Module for fx.
 var Module = fx.Options(
-	fx.Invoke(RunCommand),
+	fx.Invoke(Start),
 )

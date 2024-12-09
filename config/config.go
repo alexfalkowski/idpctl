@@ -3,6 +3,7 @@ package config
 import (
 	"github.com/alexfalkowski/go-service/cmd"
 	"github.com/alexfalkowski/go-service/config"
+	"github.com/alexfalkowski/idpctl/pipeline"
 )
 
 // NewConfig for config.
@@ -12,20 +13,16 @@ func NewConfig(i *cmd.InputConfig) (*Config, error) {
 	return c, i.Decode(c)
 }
 
-// IsEnabled for config.
-func IsEnabled(cfg *Config) bool {
-	return cfg != nil
-}
-
 // Config for the client.
 type Config struct {
+	Pipeline       *pipeline.Config `yaml:"pipeline,omitempty" json:"pipeline,omitempty" toml:"pipeline,omitempty"`
 	*config.Config `yaml:",inline" json:",inline" toml:",inline"`
 }
 
 func decorateConfig(cfg *Config) *config.Config {
-	if !IsEnabled(cfg) {
-		return nil
-	}
-
 	return cfg.Config
+}
+
+func pipelineConfig(cfg *Config) *pipeline.Config {
+	return cfg.Pipeline
 }
