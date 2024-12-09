@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v0.7.0](https://github.com/alexfalkowski/idpctl/releases/tag/v0.7.0) - 2024-12-09
+
+- [`97b7e2b`](https://github.com/alexfalkowski/idpctl/commit/97b7e2b788d3da3fe3aabee692f0514541f61d6d) feat(cli): update a pipeline (#7)
+
 ## [v0.6.0](https://github.com/alexfalkowski/idpctl/releases/tag/v0.6.0) - 2024-12-09
 
 - [`537544e`](https://github.com/alexfalkowski/idpctl/commit/537544eebb7c5af037dbccbc1d6f0eabbee4e9f5) feat(cli): get a pipeline (#6)
