@@ -61,6 +61,21 @@ module Idpctl
 
       res.to_json
     end
+
+    post '/pipelines/:id/trigger' do |id|
+      pipeline = JSON.parse(File.read('pipeline'))['pipeline']
+      pipeline['id'] = id
+      pipeline['jobs'][0]['steps'] = %w[1 2]
+
+      res = {
+        meta: {
+          id: '1234'
+        },
+        pipeline: pipeline
+      }
+
+      res.to_json
+    end
   end
 
   class HTTPServer < Nonnative::HTTPServer

@@ -12,7 +12,7 @@ Feature: Pipeline
     Then it should run successfully
     And I should see a log entry of "successfully retrieved the pipeline" in the file "reports/pipeline.log"
 
-  Scenario: Update a  pipeline
+  Scenario: Update a pipeline
     When we update a pipeline
     Then it should run successfully
     And I should see a log entry of "successfully updated the pipeline" in the file "reports/pipeline.log"
@@ -21,3 +21,8 @@ Feature: Pipeline
     When we delete a pipeline
     Then it should run successfully
     And I should see a log entry of "successfully deleted the pipeline" in the file "reports/pipeline.log"
+
+  Scenario: Trigger a pipeline
+    When we trigger a pipeline
+    Then it should run successfully
+    And I should see a log entry of "successfully triggered the pipeline" in the file "reports/pipeline.log"
