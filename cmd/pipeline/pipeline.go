@@ -24,7 +24,7 @@ var (
 	TriggerFlag = flags.String()
 )
 
-// Start for redis.
+// Start for pipeline.
 func Start(lc fx.Lifecycle, service *Service, logger *zap.Logger) error {
 	var (
 		operation string

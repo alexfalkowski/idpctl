@@ -21,6 +21,7 @@ func command() *sc.Command {
 	c := sc.New(cmd.Version)
 	c.RegisterInput(c.Root(), "")
 
+	// Add more commands here to extend the cli.
 	fns := []fn{pipelineCommand}
 	for _, f := range fns {
 		f(c)
