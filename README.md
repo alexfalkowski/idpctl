@@ -34,7 +34,7 @@ Flags:
   -g, --get string       retrieve a pipeline (the id of the pipeline)
   -h, --help             help for pipeline
   -t, --trigger string   trigger a pipeline (the id of the pipeline)
-  -u, --update string    update a pipeline (id of the pipeline and the path to file, e.g. id:path
+  -u, --update string    update a pipeline (id of the pipeline and the path to file, e.g. id:path)
 
 Global Flags:
   -i, --input string   input config location (format kind:location)

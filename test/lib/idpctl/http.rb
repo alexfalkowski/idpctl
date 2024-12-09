@@ -4,6 +4,7 @@ module Idpctl
   class Application < Sinatra::Application
     configure do
       set :server_settings, log_requests: true
+      set :default_content_type, :json
     end
 
     post '/pipelines' do

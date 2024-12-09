@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/alexfalkowski/go-service/meta"
+	"github.com/alexfalkowski/go-service/net/http/rest"
 	"github.com/alexfalkowski/go-service/os"
 	"github.com/alexfalkowski/go-service/runtime"
 	"github.com/alexfalkowski/idpctl/pipeline"
@@ -39,6 +40,7 @@ func (s *Service) Create(ctx context.Context) context.Context {
 		SetBody(pipeline).
 		Post(s.cfg.Host + "/pipelines")
 	runtime.Must(err)
+	runtime.Must(rest.Error(res))
 
 	ctx = meta.WithAttribute(ctx, "response", meta.String(res.Body()))
 
@@ -52,6 +54,7 @@ func (s *Service) Get(ctx context.Context) context.Context {
 		SetAuthToken(s.token).
 		Get(s.cfg.Host + "/pipelines/" + *GetFlag)
 	runtime.Must(err)
+	runtime.Must(rest.Error(res))
 
 	ctx = meta.WithAttribute(ctx, "response", meta.String(res.Body()))
 
@@ -71,6 +74,7 @@ func (s *Service) Update(ctx context.Context) context.Context {
 		SetBody(pipeline).
 		Put(s.cfg.Host + "/pipelines/" + split[0])
 	runtime.Must(err)
+	runtime.Must(rest.Error(res))
 
 	ctx = meta.WithAttribute(ctx, "response", meta.String(res.Body()))
 
@@ -84,6 +88,7 @@ func (s *Service) Delete(ctx context.Context) context.Context {
 		SetAuthToken(s.token).
 		Delete(s.cfg.Host + "/pipelines/" + *DeleteFlag)
 	runtime.Must(err)
+	runtime.Must(rest.Error(res))
 
 	ctx = meta.WithAttribute(ctx, "response", meta.String(res.Body()))
 
@@ -97,6 +102,7 @@ func (s *Service) Trigger(ctx context.Context) context.Context {
 		SetAuthToken(s.token).
 		Post(s.cfg.Host + "/pipelines/" + *TriggerFlag + "/trigger")
 	runtime.Must(err)
+	runtime.Must(rest.Error(res))
 
 	ctx = meta.WithAttribute(ctx, "response", meta.String(res.Body()))
 
