@@ -26,3 +26,8 @@ Feature: Pipeline
     When we trigger a pipeline
     Then it should run successfully
     And I should see a log entry of "successfully triggered the pipeline" in the file "reports/pipeline.log"
+
+  Scenario: Missing token
+    When we try to create a new pipeline with a missing token
+    Then it should run unsuccessfully
+    And I should see a log entry of "pipeline: open test: no such file or directory" in the file "reports/pipeline.log"

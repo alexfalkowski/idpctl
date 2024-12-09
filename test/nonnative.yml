@@ -5,4 +5,4 @@ servers:
     class: Idpctl::HTTPServer
     timeout: 1
     port: 4567
-    log: http_server.log
+    log: reports/http_server.log
