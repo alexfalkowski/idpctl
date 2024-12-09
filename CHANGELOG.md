@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v0.11.0](https://github.com/alexfalkowski/idpctl/releases/tag/v0.11.0) - 2024-12-09
+
+- [`d8b87b3`](https://github.com/alexfalkowski/idpctl/commit/d8b87b3ccf0496f42afa71a22191451eac7c7f00) feat(cli): break up features (#18)
+
 ## [v0.10.0](https://github.com/alexfalkowski/idpctl/releases/tag/v0.10.0) - 2024-12-09
 
 - [`9096783`](https://github.com/alexfalkowski/idpctl/commit/90967839415c34598d14fa2a6d99ce1477b8458a) feat(cmd): update functions (#17)
