@@ -33,4 +33,5 @@ func pipelineCommand(c *sc.Command) {
 	r := c.AddClientCommand("pipeline", "Manage pipelines.", cmd.Module, pipeline.Module)
 	flags.StringVar(r, pipeline.CreateFlag, "create", "c", "", "create a pipeline (path to file)")
 	flags.StringVar(r, pipeline.GetFlag, "get", "g", "", "retrieve a pipeline (the id of the pipeline)")
+	flags.StringVar(r, pipeline.UpdateFlag, "update", "u", "", "update a pipeline (id:path to file)")
 }

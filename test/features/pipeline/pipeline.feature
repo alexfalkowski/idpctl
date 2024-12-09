@@ -11,3 +11,8 @@ Feature: Pipeline
     When we get a pipeline
     Then it should run successfully
     And I should see a log entry of "successfully retrieved the pipeline" in the file "reports/pipeline.log"
+
+  Scenario: Update pipeline
+    When we update a pipeline
+    Then it should run successfully
+    And I should see a log entry of "successfully updated the pipeline" in the file "reports/pipeline.log"
