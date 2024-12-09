@@ -29,7 +29,8 @@ Usage:
   idpctl pipeline [flags]
 
 Flags:
-  -c, --create string   create pipeline
+  -c, --create string   create a pipeline (path to file)
+  -g, --get string      retrieve a pipeline (the id of the pipeline)
   -h, --help            help for pipeline
 
 Global Flags:
