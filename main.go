@@ -4,7 +4,9 @@ import (
 	"os"
 
 	sc "github.com/alexfalkowski/go-service/cmd"
+	"github.com/alexfalkowski/go-service/flags"
 	"github.com/alexfalkowski/idpctl/cmd"
+	"github.com/alexfalkowski/idpctl/cmd/pipeline"
 )
 
 func main() {
@@ -13,11 +15,21 @@ func main() {
 	}
 }
 
+type fn func(*sc.Command)
+
 func command() *sc.Command {
 	c := sc.New(cmd.Version)
-	cl := c.AddClient(cmd.ClientOptions...)
-	c.RegisterInput(cl, "")
-	c.RegisterOutput(cl, "")
+	c.RegisterInput(c.Root(), "")
+
+	fns := []fn{pipelineCommand}
+	for _, f := range fns {
+		f(c)
+	}
 
 	return c
+}
+
+func pipelineCommand(c *sc.Command) {
+	r := c.AddClientCommand("pipeline", "Manage pipelines.", cmd.Module, pipeline.Module)
+	flags.StringVar(r, pipeline.CreateFlag, "create", "c", "", "create pipeline")
 }

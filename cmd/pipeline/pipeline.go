@@ -1,0 +1,43 @@
+package pipeline
+
+import (
+	"context"
+
+	"github.com/alexfalkowski/go-service/flags"
+	"github.com/alexfalkowski/go-service/meta"
+	"github.com/alexfalkowski/go-service/net/http/rest"
+	"github.com/alexfalkowski/go-service/os"
+	"github.com/alexfalkowski/go-service/runtime"
+	"github.com/alexfalkowski/go-service/transport/http"
+	"github.com/alexfalkowski/idpctl/cmd/runner"
+	"github.com/alexfalkowski/idpctl/pipeline"
+	"go.uber.org/fx"
+	"go.uber.org/zap"
+)
+
+// CreateFlag defines wether we should create a pipeline.
+var CreateFlag = flags.String()
+
+// Start for redis.
+func Start(lc fx.Lifecycle, cfg *pipeline.Config, logger *zap.Logger) {
+	rt := http.NewRoundTripper()
+	client := rest.NewClient(rest.WithClientRoundTripper(rt), rest.WithClientTimeout("10s"))
+
+	fn := func(ctx context.Context) context.Context {
+		token, err := os.ReadBase64File("secrets/token")
+		runtime.Must(err)
+
+		pipeline, err := os.ReadFile(*CreateFlag)
+		runtime.Must(err)
+
+		res, err := client.R().SetHeader("Content-Type", "application/json").SetAuthToken(token).SetBody(pipeline).Post(cfg.Host + "/pipelines")
+		runtime.Must(err)
+
+		ctx = meta.WithAttribute(ctx, "response", meta.String(res.Body()))
+
+		return ctx
+	}
+
+	opts := &runner.Options{Lifecycle: lc, Logger: logger, Fn: fn}
+	runner.Start("pipeline", "created pipeline", opts)
+}

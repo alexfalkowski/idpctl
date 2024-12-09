@@ -1,1 +1,8 @@
 version: 1.0
+servers:
+  -
+    name: http_server
+    class: Idpctl::HTTPServer
+    timeout: 1
+    port: 4567
+    log: http_server.log

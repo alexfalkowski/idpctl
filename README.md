@@ -5,29 +5,40 @@
 [![Stability: Active](https://masterminds.github.io/stability/active.svg)](https://masterminds.github.io/stability/active.html)
 
 
-# Client
+# Internal Developer Platform
 
-Make sure you add the name of the client what what it is.
-
-## Background
-
-Add a background.
+An [Internal Developer Platform](https://internaldeveloperplatform.org/what-is-an-internal-developer-platform/) (IDP) is built by a platform team to build golden paths and enable developer self-service.
 
 ### Why a client?
 
-Why is it important to have this client.
+Internal developer portals serve as the interface through which developers can discover and access internal developer platform capabilities.
+
+Separating the client from the service allows us to make sure they move independently.
 
 ## Client
 
-Explain the client side of things.
+The client is broken down to different commands.
+
+### Pipeline
+
+```shell
+❯ ./idpctl pipeline --help
+Manage pipelines.
+
+Usage:
+  idpctl pipeline [flags]
+
+Flags:
+  -c, --create string   create pipeline
+  -h, --help            help for pipeline
+
+Global Flags:
+  -i, --input string   input config location (format kind:location)
+```
 
 ## Design
 
-Add anything interesting about the design.
-
-## Other Systems
-
-Describe any other similar systems you took inspiration from.
+The design is heavily influenced by https://github.com/alexfalkowski/servicectl.
 
 ## Development
 
@@ -40,8 +51,8 @@ The project follows the structure in [golang-standards/project-layout](https://g
 ### Dependencies
 
 Please make sure that you have the following installed:
-- [Ruby](.ruby-version)
-- [Golang](go.mod)
+- Ruby
+- Golang
 
 ### Style
 
@@ -49,7 +60,46 @@ This project favours the [Uber Go Style Guide](https://github.com/uber-go/guide/
 
 ### Setup
 
-Check out [CI](.circleci/config.yml).
+Let's get you setup.
+
+#### Submodules
+
+We need to get the git submodules.
+
+```shell
+git submodule sync
+git submodule update --init
+```
+
+#### Application
+
+To get the application running, do the following:
+
+1. Let's get the dependencies:
+```shell
+make go-dep
+```
+2. Let's build the application:
+```shell
+make build
+```
+3. Let's create a pipeline:
+```shell
+make create
+```
+
+#### Features
+
+If you want to run the features, do the following:
+
+1. Let's get the dependencies:
+```shell
+make ruby-dep
+```
+2. Let's run the features:
+```shell
+make features
+```
 
 
 ### Changes
