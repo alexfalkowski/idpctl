@@ -40,6 +40,8 @@ Global Flags:
   -i, --input string   input config location (format kind:location)
 ```
 
+Check out the [Makefile](Makefile) to see how you can use it from there.
+
 ## Design
 
 The design is heavily influenced by https://github.com/alexfalkowski/servicectl.
@@ -104,7 +106,6 @@ make ruby-dep
 ```shell
 make features
 ```
-
 
 ### Changes
 
