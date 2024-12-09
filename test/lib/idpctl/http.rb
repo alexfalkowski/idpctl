@@ -4,10 +4,11 @@ module Idpctl
   class Application < Sinatra::Application
     configure do
       set :server_settings, log_requests: true
-      set :default_content_type, :json
     end
 
     post '/pipelines' do
+      content_type :json
+
       pipeline = JSON.parse(request.body.read)['pipeline']
       pipeline['id'] = 1
 
@@ -22,6 +23,14 @@ module Idpctl
     end
 
     get '/pipelines/:id' do |id|
+      if id == '2'
+        content_type :text
+
+        halt 404, 'rest: missing pipeline'
+      end
+
+      content_type :json
+
       pipeline = JSON.parse(File.read('pipeline'))['pipeline']
       pipeline['id'] = id
 
@@ -36,6 +45,14 @@ module Idpctl
     end
 
     put '/pipelines/:id' do |id|
+      if id == '2'
+        content_type :text
+
+        halt 404, 'rest: missing pipeline'
+      end
+
+      content_type :json
+
       pipeline = JSON.parse(request.body.read)['pipeline']
       pipeline['id'] = id
 
@@ -50,6 +67,14 @@ module Idpctl
     end
 
     delete '/pipelines/:id' do |id|
+      if id == '2'
+        content_type :text
+
+        halt 404, 'rest: missing pipeline'
+      end
+
+      content_type :json
+
       pipeline = JSON.parse(File.read('pipeline'))['pipeline']
       pipeline['id'] = id
 
@@ -64,6 +89,14 @@ module Idpctl
     end
 
     post '/pipelines/:id/trigger' do |id|
+      if id == '2'
+        content_type :text
+
+        halt 404, 'rest: missing pipeline'
+      end
+
+      content_type :json
+
       pipeline = JSON.parse(File.read('pipeline'))['pipeline']
       pipeline['id'] = id
       pipeline['jobs'][0]['steps'] = %w[1 2]
