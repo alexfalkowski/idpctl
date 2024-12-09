@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v0.4.0](https://github.com/alexfalkowski/idpctl/releases/tag/v0.4.0) - 2024-12-09
+
+- [`df70123`](https://github.com/alexfalkowski/idpctl/commit/df70123d5c43ddf305e7472262ce73fe80a66e1c) feat(cli): create a pipeline (#4)
+
 ## [v0.3.0](https://github.com/alexfalkowski/idpctl/releases/tag/v0.3.0) - 2024-12-07
 
 - [`a4ff223`](https://github.com/alexfalkowski/idpctl/commit/a4ff223aaf9a9b1f324202b4c3a43839ab44e832) feat(deps): bump github.com/alexfalkowski/go-service from 1.325.0 to 1.326.0 (#3)
