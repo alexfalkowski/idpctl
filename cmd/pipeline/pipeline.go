@@ -15,29 +15,56 @@ import (
 	"go.uber.org/zap"
 )
 
-// CreateFlag defines wether we should create a pipeline.
-var CreateFlag = flags.String()
+var (
+	// CreateFlag defines the pipeline path to create a pipeline.
+	CreateFlag = flags.String()
+
+	// GetFlag defines a pipeline id to be retrieved.
+	GetFlag = flags.String()
+)
 
 // Start for redis.
 func Start(lc fx.Lifecycle, cfg *pipeline.Config, logger *zap.Logger) {
 	rt := http.NewRoundTripper()
 	client := rest.NewClient(rest.WithClientRoundTripper(rt), rest.WithClientTimeout("10s"))
 
-	fn := func(ctx context.Context) context.Context {
-		token, err := os.ReadBase64File("secrets/token")
-		runtime.Must(err)
+	var (
+		operation string
+		fn        runner.StartFn
+	)
 
-		pipeline, err := os.ReadFile(*CreateFlag)
-		runtime.Must(err)
+	switch {
+	case flags.IsStringSet(CreateFlag):
+		fn = func(ctx context.Context) context.Context {
+			token, err := os.ReadBase64File("secrets/token")
+			runtime.Must(err)
 
-		res, err := client.R().SetHeader("Content-Type", "application/json").SetAuthToken(token).SetBody(pipeline).Post(cfg.Host + "/pipelines")
-		runtime.Must(err)
+			pipeline, err := os.ReadFile(*CreateFlag)
+			runtime.Must(err)
 
-		ctx = meta.WithAttribute(ctx, "response", meta.String(res.Body()))
+			res, err := client.R().SetHeader("Content-Type", "application/json").SetAuthToken(token).SetBody(pipeline).Post(cfg.Host + "/pipelines")
+			runtime.Must(err)
 
-		return ctx
+			ctx = meta.WithAttribute(ctx, "response", meta.String(res.Body()))
+
+			return ctx
+		}
+		operation = "created the pipeline"
+	case flags.IsStringSet(GetFlag):
+		fn = func(ctx context.Context) context.Context {
+			token, err := os.ReadBase64File("secrets/token")
+			runtime.Must(err)
+
+			res, err := client.R().SetHeader("Content-Type", "application/json").SetAuthToken(token).Get(cfg.Host + "/pipelines/" + *GetFlag)
+			runtime.Must(err)
+
+			ctx = meta.WithAttribute(ctx, "response", meta.String(res.Body()))
+
+			return ctx
+		}
+		operation = "retrieved the pipeline"
 	}
 
 	opts := &runner.Options{Lifecycle: lc, Logger: logger, Fn: fn}
-	runner.Start("pipeline", "created pipeline", opts)
+	runner.Start("pipeline", operation, opts)
 }
