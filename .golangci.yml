@@ -1,9 +1,6 @@
-issues:
-  exclude-dirs:
-    - ".*\\.pb*"
 linters-settings:
   lll:
-    line-length: 140
+    line-length: 150
 linters:
   enable-all: true
   disable:

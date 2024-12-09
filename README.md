@@ -32,9 +32,11 @@ Flags:
   -c, --create string   create a pipeline (path to file)
   -g, --get string      retrieve a pipeline (the id of the pipeline)
   -h, --help            help for pipeline
+  -u, --update string   update a pipeline (id:path to file)
 
 Global Flags:
   -i, --input string   input config location (format kind:location)
+
 ```
 
 ## Design
@@ -86,7 +88,7 @@ make build
 ```
 3. Let's create a pipeline:
 ```shell
-make create
+make pipeline=pipeline create
 ```
 
 #### Features

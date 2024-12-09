@@ -33,6 +33,20 @@ module Idpctl
 
       res.to_json
     end
+
+    put '/pipelines/:id' do |id|
+      pipeline = JSON.parse(request.body.read)['pipeline']
+      pipeline['id'] = id
+
+      res = {
+        meta: {
+          id: '1234'
+        },
+        pipeline: pipeline
+      }
+
+      res.to_json
+    end
   end
 
   class HTTPServer < Nonnative::HTTPServer
