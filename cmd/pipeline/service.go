@@ -33,8 +33,8 @@ func NewService(client *resty.Client, cfg *pipeline.Config) (*Service, error) {
 	return &Service{client: client, cfg: cfg, token: token}, nil
 }
 
-// Create a pipeline.
-func (s *Service) Create(ctx context.Context) context.Context {
+// CreatePipeline for cmd.
+func (s *Service) CreatePipeline(ctx context.Context) context.Context {
 	pipeline, err := os.ReadFile(*CreateFlag)
 	runtime.Must(err)
 
@@ -47,8 +47,8 @@ func (s *Service) Create(ctx context.Context) context.Context {
 	return ctx
 }
 
-// Get a pipelines.
-func (s *Service) Get(ctx context.Context) context.Context {
+// GetPipeline for cmd.
+func (s *Service) GetPipeline(ctx context.Context) context.Context {
 	res, err := s.request().Get(s.cfg.Host + "/pipelines/" + *GetFlag)
 	runtime.Must(err)
 	runtime.Must(rest.Error(res))
@@ -58,8 +58,8 @@ func (s *Service) Get(ctx context.Context) context.Context {
 	return ctx
 }
 
-// Update a pipeline.
-func (s *Service) Update(ctx context.Context) context.Context {
+// UpdatePipeline for cmd.
+func (s *Service) UpdatePipeline(ctx context.Context) context.Context {
 	split := strings.Split(*UpdateFlag, ":")
 	if len(split) != 2 {
 		runtime.Must(ErrInvalidUpdateFormat)
@@ -77,8 +77,8 @@ func (s *Service) Update(ctx context.Context) context.Context {
 	return ctx
 }
 
-// Delete a pipeline.
-func (s *Service) Delete(ctx context.Context) context.Context {
+// DeletePipeline for cmd.
+func (s *Service) DeletePipeline(ctx context.Context) context.Context {
 	res, err := s.request().Delete(s.cfg.Host + "/pipelines/" + *DeleteFlag)
 	runtime.Must(err)
 	runtime.Must(rest.Error(res))
@@ -88,8 +88,8 @@ func (s *Service) Delete(ctx context.Context) context.Context {
 	return ctx
 }
 
-// Delete a pipeline.
-func (s *Service) Trigger(ctx context.Context) context.Context {
+// TriggerPipeline for cmd.
+func (s *Service) TriggerPipeline(ctx context.Context) context.Context {
 	res, err := s.request().Post(s.cfg.Host + "/pipelines/" + *TriggerFlag + "/trigger")
 	runtime.Must(err)
 	runtime.Must(rest.Error(res))
