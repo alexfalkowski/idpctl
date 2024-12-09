@@ -1,45 +1,27 @@
 # frozen_string_literal: true
 
 When('we create a new pipeline') do
-  cmd = Nonnative.go_executable(%w[cover], 'reports', '../idpctl', 'pipeline', '-i', 'file:.config/client.yml', '--create', 'pipeline')
-  pid = spawn({}, cmd, %i[out err] => ['reports/pipeline.log', 'a'])
-
-  _, @status = Process.waitpid2(pid)
+  @status = Idpctl.start_process('client', '--create', 'pipeline')
 end
 
 When('we get a pipeline') do
-  cmd = Nonnative.go_executable(%w[cover], 'reports', '../idpctl', 'pipeline', '-i', 'file:.config/client.yml', '--get', '1')
-  pid = spawn({}, cmd, %i[out err] => ['reports/pipeline.log', 'a'])
-
-  _, @status = Process.waitpid2(pid)
+  @status = Idpctl.start_process('client', '--get', '1')
 end
 
 When('we update a pipeline') do
-  cmd = Nonnative.go_executable(%w[cover], 'reports', '../idpctl', 'pipeline', '-i', 'file:.config/client.yml', '--update', '1:pipeline')
-  pid = spawn({}, cmd, %i[out err] => ['reports/pipeline.log', 'a'])
-
-  _, @status = Process.waitpid2(pid)
+  @status = Idpctl.start_process('client', '--update', '1:pipeline')
 end
 
 When('we delete a pipeline') do
-  cmd = Nonnative.go_executable(%w[cover], 'reports', '../idpctl', 'pipeline', '-i', 'file:.config/client.yml', '--delete', '1')
-  pid = spawn({}, cmd, %i[out err] => ['reports/pipeline.log', 'a'])
-
-  _, @status = Process.waitpid2(pid)
+  @status = Idpctl.start_process('client', '--delete', '1')
 end
 
 When('we trigger a pipeline') do
-  cmd = Nonnative.go_executable(%w[cover], 'reports', '../idpctl', 'pipeline', '-i', 'file:.config/client.yml', '--trigger', '1')
-  pid = spawn({}, cmd, %i[out err] => ['reports/pipeline.log', 'a'])
-
-  _, @status = Process.waitpid2(pid)
+  @status = Idpctl.start_process('client', '--trigger', '1')
 end
 
 When('we try to create a new pipeline with a missing token') do
-  cmd = Nonnative.go_executable(%w[cover], 'reports', '../idpctl', 'pipeline', '-i', 'file:.config/missing.yml', '--create', 'pipeline')
-  pid = spawn({}, cmd, %i[out err] => ['reports/pipeline.log', 'a'])
-
-  _, @status = Process.waitpid2(pid)
+  @status = Idpctl.start_process('missing', '--create', 'pipeline')
 end
 
 Then('it should run successfully') do
