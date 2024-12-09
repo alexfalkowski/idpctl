@@ -1,7 +1,7 @@
 environment: development
 pipeline:
-  host: http://localhost:11000
-  token: secrets/token
+  host: http://localhost:4567
+  token: test
 telemetry:
   logger:
     level: info

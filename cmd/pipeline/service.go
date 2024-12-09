@@ -15,24 +15,28 @@ import (
 type Service struct {
 	client *resty.Client
 	cfg    *pipeline.Config
+	token  string
 }
 
 // NewService for pipeline.
-func NewService(client *resty.Client, cfg *pipeline.Config) *Service {
-	return &Service{client: client, cfg: cfg}
+func NewService(client *resty.Client, cfg *pipeline.Config) (*Service, error) {
+	token, err := cfg.GetToken()
+	if err != nil {
+		return nil, err
+	}
+
+	return &Service{client: client, cfg: cfg, token: token}, nil
 }
 
 // Create a pipeline.
 func (s *Service) Create(ctx context.Context) context.Context {
-	token, err := os.ReadBase64File("secrets/token")
-	runtime.Must(err)
-
 	pipeline, err := os.ReadFile(*CreateFlag)
 	runtime.Must(err)
 
 	res, err := s.client.R().
 		SetHeader("Content-Type", "application/json").
-		SetAuthToken(token).SetBody(pipeline).
+		SetAuthToken(s.token).
+		SetBody(pipeline).
 		Post(s.cfg.Host + "/pipelines")
 	runtime.Must(err)
 
@@ -43,12 +47,9 @@ func (s *Service) Create(ctx context.Context) context.Context {
 
 // Get a pipelines.
 func (s *Service) Get(ctx context.Context) context.Context {
-	token, err := os.ReadBase64File("secrets/token")
-	runtime.Must(err)
-
 	res, err := s.client.R().
 		SetHeader("Content-Type", "application/json").
-		SetAuthToken(token).
+		SetAuthToken(s.token).
 		Get(s.cfg.Host + "/pipelines/" + *GetFlag)
 	runtime.Must(err)
 
@@ -59,9 +60,6 @@ func (s *Service) Get(ctx context.Context) context.Context {
 
 // Update a pipeline.
 func (s *Service) Update(ctx context.Context) context.Context {
-	token, err := os.ReadBase64File("secrets/token")
-	runtime.Must(err)
-
 	split := strings.Split(*UpdateFlag, ":")
 
 	pipeline, err := os.ReadFile(split[1])
@@ -69,7 +67,8 @@ func (s *Service) Update(ctx context.Context) context.Context {
 
 	res, err := s.client.R().
 		SetHeader("Content-Type", "application/json").
-		SetAuthToken(token).SetBody(pipeline).
+		SetAuthToken(s.token).
+		SetBody(pipeline).
 		Put(s.cfg.Host + "/pipelines/" + split[0])
 	runtime.Must(err)
 
@@ -80,12 +79,9 @@ func (s *Service) Update(ctx context.Context) context.Context {
 
 // Delete a pipeline.
 func (s *Service) Delete(ctx context.Context) context.Context {
-	token, err := os.ReadBase64File("secrets/token")
-	runtime.Must(err)
-
 	res, err := s.client.R().
 		SetHeader("Content-Type", "application/json").
-		SetAuthToken(token).
+		SetAuthToken(s.token).
 		Delete(s.cfg.Host + "/pipelines/" + *DeleteFlag)
 	runtime.Must(err)
 
@@ -96,12 +92,9 @@ func (s *Service) Delete(ctx context.Context) context.Context {
 
 // Delete a pipeline.
 func (s *Service) Trigger(ctx context.Context) context.Context {
-	token, err := os.ReadBase64File("secrets/token")
-	runtime.Must(err)
-
 	res, err := s.client.R().
 		SetHeader("Content-Type", "application/json").
-		SetAuthToken(token).
+		SetAuthToken(s.token).
 		Post(s.cfg.Host + "/pipelines/" + *TriggerFlag + "/trigger")
 	runtime.Must(err)
 
