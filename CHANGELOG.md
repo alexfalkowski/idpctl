@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v0.21.0](https://github.com/alexfalkowski/idpctl/releases/tag/v0.21.0) - 2024-12-18
+
+- [`fcde6be`](https://github.com/alexfalkowski/idpctl/commit/fcde6bedbb7390eb61ca9578a72d9bf904ba1611) feat(deps): upgraded github.com/alexfalkowski/go-service to v1.343.0 (#32)
+- [`fb3f375`](https://github.com/alexfalkowski/idpctl/commit/fb3f375abfaeac16018f247224037464b12c02c9) test(deps): bump nonnative from 1.83.0 to 1.84.1 in /test (#31)
+
 ## [v0.20.0](https://github.com/alexfalkowski/idpctl/releases/tag/v0.20.0) - 2024-12-17
 
 - [`a4f8f0b`](https://github.com/alexfalkowski/idpctl/commit/a4f8f0b081a7da080f0c30c066ca9a90b2ab2ede) feat(deps): bump github.com/alexfalkowski/go-service from 1.341.0 to 1.342.0 (#30)
